@@ -28,10 +28,10 @@ brain Brain;
 
 // Robot configuration code.
 /*vex-vision-config:begin*/
-vision::signature Vision10__BLUEBOX = vision::signature (1, -3303, -2565, -2934,9657, 12303, 10980,4.9, 0);
-vision::signature Vision10__REDBOX = vision::signature (2, 0, 0, 0,0, 0, 0,3, 0);
-vision::signature Vision10__GREENBOX = vision::signature (3, 0, 0, 0,0, 0, 0,3, 0);
-vision Vision10 = vision (PORT10, 50, Vision10__BLUEBOX, Vision10__REDBOX, Vision10__GREENBOX);
+vision::signature Vision21__H = vision::signature (1, -3303, -2565, -2934,9657, 12303, 10980,5, 0);
+vision::signature Vision21__REDBOX = vision::signature (2, 0, 0, 0,0, 0, 0,3, 0);
+vision::signature Vision21__GREENBOX = vision::signature (3, 0, 0, 0,0, 0, 0,3, 0);
+vision Vision21 = vision (PORT21, 50, Vision21__H, Vision21__REDBOX, Vision21__GREENBOX);
 /*vex-vision-config:end*/
 motor LeftDriveSmart = motor(PORT1, ratio18_1, false);
 motor RightDriveSmart = motor(PORT2, ratio18_1, true);
@@ -73,7 +73,7 @@ void playVexcodeSound(const char *soundName) {
 // Allows for easier use of the VEX Library
 using namespace vex;
 
-int Vision10_objectIndex = 0;
+int Vision21_objectIndex = 0;
 
 float myVariable;
 
@@ -85,16 +85,16 @@ event message1 = event();
 // "when started" hat block
 int whenStarted1() {
   while (true) {
-    Vision10.takeSnapshot(Vision10__BLUEBOX);
-    if (Vision10.objectCount > 0) {
-      if (Vision10.objects[Vision10_objectIndex].centerX > 100.0) {
+    Vision21.takeSnapshot(Vision21__H);
+    if (Vision21.objectCount > 0) {
+      if (Vision21.objects[Vision21_objectIndex].centerX > 100.0) {
         Drivetrain.drive(forward);
       }
-      if (Vision10.objects[Vision10_objectIndex].centerX < 60.0) {
+      if (Vision21.objects[Vision21_objectIndex].centerX < 60.0) {
         Drivetrain.drive(reverse);
       }
-      if (Vision10.objects[Vision10_objectIndex].centerX > 60.0 && Vision10.objects[Vision10_objectIndex].centerX < 100.0) {
-        if (Vision10.objects[Vision10_objectIndex].width < 125.0) {
+      if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 100.0) {
+        if (Vision21.objects[Vision21_objectIndex].width < 125.0) {
           Drivetrain.drive(forward);
         }
         else {
