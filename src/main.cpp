@@ -33,14 +33,14 @@ vision::signature Vision21__REDBOX = vision::signature (2, 0, 0, 0,0, 0, 0,3, 0)
 vision::signature Vision21__GREENBOX = vision::signature (3, 0, 0, 0,0, 0, 0,3, 0);
 vision Vision21 = vision (PORT21, 50, Vision21__H, Vision21__REDBOX, Vision21__GREENBOX);
 /*vex-vision-config:end*/
-motor LeftDriveSmart = motor(PORT1, ratio18_1, false);
-motor RightDriveSmart = motor(PORT2, ratio18_1, true);
+motor LeftDriveSmart = motor(PORT11, ratio18_1, false);
+motor RightDriveSmart = motor(PORT20, ratio18_1, true);
 inertial DrivetrainInertial = inertial(PORT3);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
-motor arm = motor(PORT4, ratio18_1, false);
+motor arm = motor(PORT1, ratio18_1, false);
 
-motor claw = motor(PORT5, ratio18_1, false);
+motor claw = motor(PORT13, ratio18_1, false);
 
 
 bool vexcode_initial_drivetrain_calibration_completed = false;
