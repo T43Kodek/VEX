@@ -33,8 +33,8 @@ vision::signature Vision21__REDBOX = vision::signature (2, 0, 0, 0,0, 0, 0,3, 0)
 vision::signature Vision21__GREENBOX = vision::signature (3, 0, 0, 0,0, 0, 0,3, 0);
 vision Vision21 = vision (PORT21, 50, Vision21__H, Vision21__REDBOX, Vision21__GREENBOX);
 /*vex-vision-config:end*/
-motor LeftDriveSmart = motor(PORT11, ratio18_1, false);
-motor RightDriveSmart = motor(PORT20, ratio18_1, true);
+motor LeftDriveSmart = motor(PORT20, ratio18_1, false);
+motor RightDriveSmart = motor(PORT11, ratio18_1, true);
 inertial DrivetrainInertial = inertial(PORT3);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
@@ -87,11 +87,17 @@ int whenStarted1() {
   while (true) {
     Vision21.takeSnapshot(Vision21__H);
     if (Vision21.objectCount > 0) {
-      if (Vision21.objects[Vision21_objectIndex].centerX > 100.0) {
+      if (Vision21.objects[Vision21_objectIndex].centerX > 180.0) {
         Drivetrain.drive(forward);
+        Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Forward............");
       }
       if (Vision21.objects[Vision21_objectIndex].centerX < 60.0) {
         Drivetrain.drive(reverse);
+         Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("weverse.........    ");
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Fowward...............      ");
       }
       if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 100.0) {
         if (Vision21.objects[Vision21_objectIndex].width < 125.0) {
@@ -99,12 +105,16 @@ int whenStarted1() {
         }
         else {
           Drivetrain.stop();
+                    Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("STWAP........    ");
         }
       }
     }
     else {
       Drivetrain.setTurnVelocity(25.0, percent);
       Drivetrain.turn(right);
+          Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("TwURN   ");
     }
   wait(5, msec);
   }
