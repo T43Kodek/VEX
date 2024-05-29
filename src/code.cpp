@@ -89,7 +89,7 @@ int whenStarted1()
     Vision21.takeSnapshot(Vision21__H);
     if (Vision21.objectCount > 0)
     {
-      if (Vision21.objects[Vision21_objectIndex].centerX > 180.0)
+      if (Vision21.objects[Vision21_objectIndex].centerX > 150.0)
       {
          Drivetrain.drive(forward);
 
@@ -99,16 +99,16 @@ int whenStarted1()
       if (Vision21.objects[Vision21_objectIndex].centerX < 60.0)
       {
          Drivetrain.drive(reverse);
+         Drivetrain.turn(left);
+         wait(0.5,sec);
         Brain.Screen.setCursor(1, 1);
         Brain.Screen.print("reverse.........    ");
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("Forward...............      ");
+        
       }
-      if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 100.0)
+      if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 180.0)
       {
-        if (Vision21.objects[Vision21_objectIndex].width < 40)
+        if (Vision21.objects[Vision21_objectIndex].width < 25)
         {
-            Drivetrain.drive(forward);
         }
         else
         {
@@ -125,11 +125,11 @@ int whenStarted1()
       Brain.Screen.setCursor(1, 1);
       Brain.Screen.print("TURN   ");
     }
-    double x = Vision21.objects[Vision21_objectIndex].centerX;
-   // double x = Vision21.objects[Vision21_objectIndex].width;
+   double x = Vision21.objects[Vision21_objectIndex].centerX;
+    double y = Vision21.objects[Vision21_objectIndex].width;
     // Print the centerX value to the console
     printf("CenterX: %f\n", x);
-   // printf("Width: %f\n", x);
+    printf("Width: %f\n", y);
     wait(0.5, sec);
   }
   return 0;
