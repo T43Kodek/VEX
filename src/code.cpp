@@ -91,44 +91,46 @@ int whenStarted1()
     {
       if (Vision21.objects[Vision21_objectIndex].centerX > 180.0)
       {
-        // Drivetrain.drive(forward);
+         Drivetrain.drive(forward);
 
         Brain.Screen.setCursor(1, 1);
         Brain.Screen.print(Vision21.objects[Vision21_objectIndex].centerX);
       }
       if (Vision21.objects[Vision21_objectIndex].centerX < 60.0)
       {
-        // Drivetrain.drive(reverse);
+         Drivetrain.drive(reverse);
         Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("weverse.........    ");
+        Brain.Screen.print("reverse.........    ");
         Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("Fowward...............      ");
+        Brain.Screen.print("Forward...............      ");
       }
       if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 100.0)
       {
-        if (Vision21.objects[Vision21_objectIndex].width < 125.0)
+        if (Vision21.objects[Vision21_objectIndex].width < 40)
         {
+            Drivetrain.drive(forward);
         }
         else
         {
-          // Drivetrain.stop();
+           Drivetrain.stop();
           Brain.Screen.setCursor(1, 1);
-          Brain.Screen.print("STWAP........    ");
+          Brain.Screen.print("STOP........    ");
         }
       }
     }
     else
     {
       Drivetrain.setTurnVelocity(25.0, percent);
-      // Drivetrain.turn(right);
+       Drivetrain.turn(right);
       Brain.Screen.setCursor(1, 1);
-      Brain.Screen.print("TwURN   ");
+      Brain.Screen.print("TURN   ");
     }
     double x = Vision21.objects[Vision21_objectIndex].centerX;
-
+   // double x = Vision21.objects[Vision21_objectIndex].width;
     // Print the centerX value to the console
     printf("CenterX: %f\n", x);
-    wait(5, msec);
+   // printf("Width: %f\n", x);
+    wait(0.5, sec);
   }
   return 0;
 }
