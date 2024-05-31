@@ -105,9 +105,9 @@ int whenStarted1()
         Brain.Screen.print("reverse.........    ");
         
       }
-      if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 180.0)
+      if (Vision21.objects[Vision21_objectIndex].centerX > 100.0 && Vision21.objects[Vision21_objectIndex].centerX < 170.0)
       {
-        if (Vision21.objects[Vision21_objectIndex].width < 25)
+        if (Vision21.objects[Vision21_objectIndex].width < 40
         {
         }
         else
