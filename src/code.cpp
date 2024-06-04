@@ -6,7 +6,6 @@
 #include <math.h>
 #include <string.h>
 
-
 #include "vex.h"
 
 using namespace vex;
@@ -14,24 +13,22 @@ using namespace vex;
 // Brain should be defined by default
 brain Brain;
 
-
 // START V5 MACROS
-#define waitUntil(condition)                                                   \
-  do {                                                                         \
-    wait(5, msec);                                                             \
+#define waitUntil(condition) \
+  do {                        \
+    wait(5, msec);            \
   } while (!(condition))
 
-#define repeat(iterations)                                                     \
+#define repeat(iterations) \
   for (int iterator = 0; iterator < iterations; iterator++)
 // END V5 MACROS
 
-
 // Robot configuration code.
 /*vex-vision-config:begin*/
-vision::signature Vision21__H = vision::signature (1, -3303, -2565, -2934,9657, 12303, 10980,5, 0);
-vision::signature Vision21__REDBOX = vision::signature (2, 0, 0, 0,0, 0, 0,3, 0);
-vision::signature Vision21__GREENBOX = vision::signature (3, 0, 0, 0,0, 0, 0,3, 0);
-vision Vision21 = vision (PORT21, 50, Vision21__H, Vision21__REDBOX, Vision21__GREENBOX);
+vision::signature Vision21__H = vision::signature(1, -3303, -2565, -2934, 9657, 12303, 10980, 5, 0);
+vision::signature Vision21__REDBOX = vision::signature(2, 0, 0, 0, 0, 0, 0, 3, 0);
+vision::signature Vision21__GREENBOX = vision::signature(3, 0, 0, 0, 0, 0, 0, 3, 0);
+vision Vision21 = vision(PORT21, 50, Vision21__H, Vision21__REDBOX, Vision21__GREENBOX);
 /*vex-vision-config:end*/
 motor LeftDriveSmart = motor(PORT20, ratio18_1, false);
 motor RightDriveSmart = motor(PORT11, ratio18_1, true);
@@ -42,15 +39,16 @@ motor arm = motor(PORT1, ratio18_1, false);
 
 motor claw = motor(PORT13, ratio18_1, false);
 
-
 bool vexcode_initial_drivetrain_calibration_completed = false;
-void calibrateDrivetrain() {
+void calibrateDrivetrain()
+{
   wait(200, msec);
   Brain.Screen.print("Calibrating");
   Brain.Screen.newLine();
   Brain.Screen.print("Inertial");
   DrivetrainInertial.calibrate();
-  while (DrivetrainInertial.isCalibrating()) {
+  while (DrivetrainInertial.isCalibrating())
+  {
     wait(25, msec);
   }
   vexcode_initial_drivetrain_calibration_completed = true;
@@ -61,7 +59,8 @@ void calibrateDrivetrain() {
 
 // Helper to make playing sounds from the V5 in VEXcode easier and
 // keeps the code cleaner by making it clear what is happening.
-void playVexcodeSound(const char *soundName) {
+void playVexcodeSound(const char *soundName)
+{
   printf("VEXPlaySound:%s\n", soundName);
   wait(5, msec);
 }
@@ -69,7 +68,7 @@ void playVexcodeSound(const char *soundName) {
 #pragma endregion VEXcode Generated Robot Configuration
 // Include the V5 Library
 #include "vex.h"
-  
+
 // Allows for easier use of the VEX Library
 using namespace vex;
 
@@ -81,48 +80,63 @@ event checkRed = event();
 event checkBlue = event();
 event checkGreen = event();
 event message1 = event();
-
+//BRANCH 2
 // "when started" hat block
-int whenStarted1() {
-  while (true) {
+int whenStarted1()
+{
+  while (true)
+  {
     Vision21.takeSnapshot(Vision21__H);
-    if (Vision21.objectCount > 0) {
-      if (Vision21.objects[Vision21_objectIndex].centerX > 180.0) {
-        Drivetrain.drive(forward);
+    if (Vision21.objectCount > 0)
+    {
+      if (Vision21.objects[Vision21_objectIndex].centerX > 150.0)
+      {
+         Drivetrain.drive(forward);
+
         Brain.Screen.setCursor(1, 1);
-  Brain.Screen.print("Forward............");
+        Brain.Screen.print(Vision21.objects[Vision21_objectIndex].centerX);
       }
-      if (Vision21.objects[Vision21_objectIndex].centerX < 60.0) {
-        Drivetrain.drive(reverse);
-         Brain.Screen.setCursor(1, 1);
-  Brain.Screen.print("weverse.........    ");
-  Brain.Screen.setCursor(1, 1);
-  Brain.Screen.print("Fowward...............      ");
+      if (Vision21.objects[Vision21_objectIndex].centerX < 60.0)
+      {
+         Drivetrain.drive(reverse);
+         Drivetrain.turn(left);
+         wait(0.5,sec);
+        Brain.Screen.setCursor(1, 1);
+        Brain.Screen.print("reverse.........    ");
+        
       }
-      if (Vision21.objects[Vision21_objectIndex].centerX > 60.0 && Vision21.objects[Vision21_objectIndex].centerX < 100.0) {
-        if (Vision21.objects[Vision21_objectIndex].width < 125.0) {
-          Drivetrain.drive(forward);
+      if (Vision21.objects[Vision21_objectIndex].centerX > 100.0 && Vision21.objects[Vision21_objectIndex].centerX < 170.0)
+      {
+        if (Vision21.objects[Vision21_objectIndex].width < 40
+        {
         }
-        else {
-          Drivetrain.stop();
-                    Brain.Screen.setCursor(1, 1);
-  Brain.Screen.print("STWAP........    ");
-        }
-      }
-    }
-    else {
-      Drivetrain.setTurnVelocity(25.0, percent);
-      Drivetrain.turn(right);
+        else
+        {
+           Drivetrain.stop();
           Brain.Screen.setCursor(1, 1);
-  Brain.Screen.print("TwURN   ");
+          Brain.Screen.print("STOP........    ");
+        }
+      }
     }
-  wait(5, msec);
+    else
+    {
+      Drivetrain.setTurnVelocity(25.0, percent);
+       Drivetrain.turn(right);
+      Brain.Screen.setCursor(1, 1);
+      Brain.Screen.print("TURN   ");
+    }
+   double x = Vision21.objects[Vision21_objectIndex].centerX;
+    double y = Vision21.objects[Vision21_objectIndex].width;
+    // Print the centerX value to the console
+    printf("CenterX: %f\n", x);
+    printf("Width: %f\n", y);
+    wait(0.5, sec);
   }
   return 0;
 }
 
-
-int main() {
+int main()
+{
   // Calibrate the Drivetrain
   calibrateDrivetrain();
 
